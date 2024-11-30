@@ -5,21 +5,33 @@
 package com.mycompany.maintaskmanager;
 
 
+import com.mycompany.maintaskmanager.Task.Importance;
+import com.mycompany.maintaskmanager.Task.taskType;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
  
 /**
  *
  * @author aitda
  */
 public class FirstWindow extends javax.swing.JFrame implements ActionListener{
-
+    private ArrayList<Task> Tasks;
+    
     /**
      * Creates new form FirstWindow
      */
     public FirstWindow() {
         initComponents();
+        
     }
 
     /**
@@ -55,10 +67,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Name", "Importance", "Creation Date", "Limit Date"
@@ -86,14 +95,14 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(140, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -104,10 +113,40 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void LoadDataBase(){
+        
+        
+         String url = "jdbc:sqlite:C:/datab/database.db";
+
+        String query = "SELECT * FROM task";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id"));
+                System.out.println("Name: " + rs.getString("name"));
+                System.out.println("Description: " + rs.getString("description"));
+                System.out.println("Importance: " + rs.getString("importance"));
+                System.out.println("-----------------------");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+    }
      
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        System.out.println("test");
+       
+       //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+       //Task _task = new Task( "test", "test", Importance.Important,taskType.Hobby );
+       //model.addRow(new String[]{_task.getTaskName(), _task.getTaskImportance().toString(), _task.getTaskCreationDate().toString(),_task.getTaskLimitDate().toString()});
        new TaskWindow().setVisible(true);
+       LoadDataBase();
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -116,8 +155,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
     }//GEN-LAST:event_jButton2ActionPerformed
 
     @Override
-    public void actionPerformed(ActionEvent e
-    ){
+    public void actionPerformed(ActionEvent e){
         System.out.println("test");
     }
     

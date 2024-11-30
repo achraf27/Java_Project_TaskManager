@@ -11,33 +11,59 @@ import java.time.LocalDate;
  * @author aitda
  */
 public class Task {
-    enum type{
+    public enum taskType{
     Hobby,
     Work
 }
     
-    enum Importance{
+    public enum Importance{
         Unimportant,
         Important,
         VeryImportant
 }
     
+    public enum Status{
+        Pending,
+        InProcess,
+        Finished
+    }
+    
+    
+    private int id;
     private String name,description;
     private Importance TaskImportance;
-    private type TaskType;
+    private taskType Task_Type;
+    private Status taskStatus;
     private LocalDate TaskLimitDate;
     private final LocalDate TaskCreationDate;
     
-    public Task(String _name, String _description, Importance _TaskImportance, type _taskType,LocalDate _taskLimitDate)
+    public Task(int _id,String _name, String _description, Importance _TaskImportance, taskType _taskType,Status _taskStatus,LocalDate _taskLimitDate)
     {
+        id = _id;
         name = _name;
         description = _description;
         TaskImportance = _TaskImportance;
-        TaskType = _taskType;
+        Task_Type = _taskType;
+        taskStatus = _taskStatus;
         TaskLimitDate = _taskLimitDate;
         TaskCreationDate = LocalDate.now();
     }
     
+     public Task(int _id,String _name, String _description, Importance _TaskImportance, taskType _taskType)
+    {
+        id = _id;
+        name = _name;
+        description = _description;
+        TaskImportance = _TaskImportance;
+        Task_Type = _taskType;
+        TaskLimitDate = LocalDate.now();
+        TaskCreationDate = LocalDate.now();
+    }
+    
+     public int getId(){
+         return id;
+     }
+     
     public String getTaskName(){
         return name;
     }
@@ -50,8 +76,12 @@ public class Task {
         return TaskImportance;
     }
     
-    public type getTaskType(){
-        return TaskType;
+    public taskType getTaskType(){
+        return Task_Type;
+    }
+    
+    public Status getTaskStatus(){
+        return taskStatus;
     }
     
     public LocalDate getTaskCreationDate(){
@@ -61,6 +91,7 @@ public class Task {
     public LocalDate getTaskLimitDate(){
         return TaskLimitDate;
     }
+    
     
     public void setTasktName(String _name){
         name = _name;
@@ -74,8 +105,12 @@ public class Task {
         TaskImportance = _TaskImportance;
     }
     
-    public void setTaskType(type _taskType){
-        TaskType = _taskType;
+    public void setTaskType(taskType _taskType){
+        Task_Type = _taskType;
+    }
+    
+    public void setTaskStatus(Status _taskStatus){
+        taskStatus = _taskStatus;
     }
     
     public void setTaskLimitDate(LocalDate _limitDate){
