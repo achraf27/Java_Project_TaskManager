@@ -7,6 +7,7 @@ com\mycompany\maintaskmanager\Task$Importance.class
 com\mycompany\maintaskmanager\Task$Status.class
 com\mycompany\maintaskmanager\TaskWindow$5.class
 com\mycompany\maintaskmanager\TaskWindow$1.class
+com\mycompany\maintaskmanager\DataAdded.class
 com\mycompany\maintaskmanager\Task.class
 com\mycompany\maintaskmanager\TaskWindow$2.class
 com\mycompany\maintaskmanager\TaskWindow.class

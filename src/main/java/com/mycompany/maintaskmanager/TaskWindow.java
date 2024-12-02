@@ -5,6 +5,7 @@
 package com.mycompany.maintaskmanager;
 
 
+import com.mycompany.maintaskmanager.Task.Status;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,14 +17,16 @@ import java.text.SimpleDateFormat;
  * @author aitda
  */
 public class TaskWindow extends javax.swing.JFrame {
-    
-    private String url = "jdbc:sqlite:C:/datab/database.db";
+    private DataAdded dataAdded;
+    private final String url = "jdbc:sqlite:C:/datab/database.db";
 
 
     /**
      * Creates new form TaskWindow
+     * @param _dataAdded
      */
-    public TaskWindow() {
+    public TaskWindow(DataAdded _dataAdded) {
+       this.dataAdded = _dataAdded;
         initComponents();
         
         
@@ -68,7 +71,7 @@ public class TaskWindow extends javax.swing.JFrame {
             }
         });
 
-        ImportanceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unimportant", "Important", "Very Important" }));
+        ImportanceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unimportant", "Important", "VeryImportant" }));
         ImportanceComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ImportanceComboBoxActionPerformed(evt);
@@ -199,7 +202,7 @@ public class TaskWindow extends javax.swing.JFrame {
             System.out.println("lol");
         else{
             
-            String insertSQL = "INSERT INTO task(name, description, importance, type,creation_date,limit_date) VALUES(?, ?, ?, ?, ?, ?)";
+            String insertSQL = "INSERT INTO task(name, description, importance,status, type,creation_date,limit_date) VALUES(?, ?, ?, ?, ?, ?,?)";
 
             try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
@@ -207,17 +210,20 @@ public class TaskWindow extends javax.swing.JFrame {
             pstmt.setString(1, NameField.getText());
             pstmt.setString(2, DescriptionField.getText());
             pstmt.setString(3, ImportanceComboBox.getSelectedItem().toString());
-            pstmt.setString(4, TypeComboBox.getSelectedItem().toString());
-            pstmt.setString(5, LocalDate.now().toString());
+            pstmt.setString(4, Status.PENDING.toString());
+            pstmt.setString(5, TypeComboBox.getSelectedItem().toString());
+            pstmt.setString(6, LocalDate.now().toString());
             if(LimitDateChoser.getDate()== null)
-                pstmt.setString(6, null);
+                pstmt.setString(7, null);
             
             else{
                  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = formatter.format(LimitDateChoser.getDate());
-                pstmt.setString (6, formattedDate);
+                pstmt.setString (7, formattedDate);
             }
             pstmt.executeUpdate();
+            
+            dataAdded.onDataAdded();
 
             System.out.println("Données insérées avec succès.");
         } catch (Exception e) {

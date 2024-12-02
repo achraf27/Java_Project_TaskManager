@@ -6,6 +6,7 @@ package com.mycompany.maintaskmanager;
 
 
 import com.mycompany.maintaskmanager.Task.Importance;
+import com.mycompany.maintaskmanager.Task.Status;
 import com.mycompany.maintaskmanager.Task.taskType;
 import javax.swing.*;
 import java.awt.event.*;
@@ -19,18 +20,38 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
  
+
+
+
 /**
  *
  * @author aitda
  */
-public class FirstWindow extends javax.swing.JFrame implements ActionListener{
+
+
+
+
+public class FirstWindow extends javax.swing.JFrame implements ActionListener, DataAdded{
     private ArrayList<Task> Tasks;
+    private Importance importance;
+    private taskType type;
+    
+    private Status status;
+    
+    
+    @Override
+    public void onDataAdded(){
+        LoadDataBase();
+    }
     
     /**
      * Creates new form FirstWindow
      */
     public FirstWindow() {
         initComponents();
+        Tasks = new ArrayList<>();
+        LoadDataBase();
+        
         
     }
 
@@ -46,7 +67,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TaskTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +86,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TaskTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -81,7 +102,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TaskTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,10 +135,23 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void LoadDataBase(){
+    private boolean isTaskInArray(int id){
+        if(Tasks.isEmpty())
+            return false;
+        for(int i = 0; i < Tasks.size();i++){
+            if(Tasks.get(i).getId() == id){
+                return true;    
+            }
+        }
+        return false;
+    }
+    
+    
+    
+    private boolean LoadDataBase(){
         
         
-         String url = "jdbc:sqlite:C:/datab/database.db";
+        String url = "jdbc:sqlite:C:/datab/database.db";
 
         String query = "SELECT * FROM task";
 
@@ -126,18 +160,54 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("id"));
+                int i = 0;
+                
+                int id = rs.getInt("id");
+                
+                System.out.println("ID: " + id);
                 System.out.println("Name: " + rs.getString("name"));
                 System.out.println("Description: " + rs.getString("description"));
                 System.out.println("Importance: " + rs.getString("importance"));
                 System.out.println("-----------------------");
+                
+                importance = Importance.valueOf(rs.getString("importance").toUpperCase());
+                type = taskType.valueOf(rs.getString("type").toUpperCase());
+                status = Status.valueOf(rs.getString("status").toUpperCase());
+                
+                
+                
+                if(!isTaskInArray(id)){
+                    Task _task = new Task(rs.getInt("id"),rs.getString("name"),rs.getString("description"),
+                    importance,type,
+                    status ,LocalDate.parse(rs.getString("limit_date")));
+               
+                    DefaultTableModel model = (DefaultTableModel) TaskTable.getModel();
+               
+                    model.addRow(new String[]{_task.getTaskName(), _task.getTaskImportance().toString(), _task.getTaskCreationDate().toString(),_task.getTaskLimitDate().toString()});
+                    
+                    Tasks.add(_task);
+                }
+                
+               i++;
             }
+            
+            
+            
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+           
         }
-        
+        return false;
         
     }
+    
+    
+    
+    
+    
+    
+    
      
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        System.out.println("test");
@@ -145,8 +215,8 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
        //Task _task = new Task( "test", "test", Importance.Important,taskType.Hobby );
        //model.addRow(new String[]{_task.getTaskName(), _task.getTaskImportance().toString(), _task.getTaskCreationDate().toString(),_task.getTaskLimitDate().toString()});
-       new TaskWindow().setVisible(true);
-       LoadDataBase();
+       new TaskWindow(this).setVisible(true);
+       
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -167,9 +237,9 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener{
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TaskTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

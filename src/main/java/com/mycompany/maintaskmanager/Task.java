@@ -12,20 +12,20 @@ import java.time.LocalDate;
  */
 public class Task {
     public enum taskType{
-    Hobby,
-    Work
+    HOBBY,
+    WORK
 }
     
     public enum Importance{
-        Unimportant,
-        Important,
-        VeryImportant
+        UNIMPORTANT,
+        IMPORTANT,
+        VERYIMPORTANT
 }
     
     public enum Status{
-        Pending,
-        InProcess,
-        Finished
+        PENDING,
+        INPROCESS,
+        FINISHED
     }
     
     
@@ -116,4 +116,6 @@ public class Task {
     public void setTaskLimitDate(LocalDate _limitDate){
         TaskLimitDate = _limitDate;
     }
+    
+   
 }

@@ -132,7 +132,7 @@
           <StringArray count="3">
             <StringItem index="0" value="Unimportant"/>
             <StringItem index="1" value="Important"/>
-            <StringItem index="2" value="Very Important"/>
+            <StringItem index="2" value="VeryImportant"/>
           </StringArray>
         </Property>
       </Properties>
