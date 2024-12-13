@@ -15,7 +15,6 @@ import java.awt.*;
 public class MainTaskManager {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
         new FirstWindow().setVisible(true);
     }
 }

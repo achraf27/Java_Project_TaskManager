@@ -11,6 +11,8 @@ import java.time.LocalDate;
  * @author aitda
  */
 public class Task {
+
+    
     public enum taskType{
     HOBBY,
     WORK
@@ -24,7 +26,6 @@ public class Task {
     
     public enum Status{
         PENDING,
-        INPROCESS,
         FINISHED
     }
     
@@ -49,20 +50,25 @@ public class Task {
         TaskCreationDate = LocalDate.now();
     }
     
-     public Task(int _id,String _name, String _description, Importance _TaskImportance, taskType _taskType)
+    //Task(int,String,String,Importance,taskType,Status)
+    
+     public Task(int _id,String _name, String _description, Importance _TaskImportance, taskType _taskType, Status _taskStatus)
     {
         id = _id;
         name = _name;
         description = _description;
         TaskImportance = _TaskImportance;
         Task_Type = _taskType;
-        TaskLimitDate = LocalDate.now();
+        TaskLimitDate = null;
+        taskStatus = _taskStatus;
         TaskCreationDate = LocalDate.now();
     }
     
      public int getId(){
          return id;
      }
+     
+    
      
     public String getTaskName(){
         return name;

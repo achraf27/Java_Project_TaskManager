@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
  */
 public class TaskWindow extends javax.swing.JFrame {
     private DataAdded dataAdded;
+    private Boolean edit = false;
+    private Task task;
     private final String url = "jdbc:sqlite:C:/datab/database.db";
 
 
@@ -32,6 +34,15 @@ public class TaskWindow extends javax.swing.JFrame {
         
          
 
+        
+    }
+    
+    public TaskWindow(DataAdded _dataAdded,Boolean _edit, Task _task){
+        this.task = _task;
+        this.edit = _edit;
+        this.dataAdded = _dataAdded;
+        initComponents();
+        loadEdit();
         
     }
 
@@ -197,42 +208,98 @@ public class TaskWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
+    private void loadEdit(){
+        if(task !=null){
+            NameField.setText(task.getTaskName());
+            DescriptionField.setText(task.getTaskDescription());
+            ImportanceComboBox.setSelectedItem(task.getTaskImportance());
+            TypeComboBox.setSelectedItem(task.getTaskType());
+            
+            if(task.getTaskLimitDate() != null)
+                LimitDateChoser.setDate(java.sql.Date.valueOf(task.getTaskLimitDate()));
+        }
+        
+    }
+    
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
-        if(DescriptionField.getText().equals("") || NameField.getText().equals(""))
-            System.out.println("lol");
-        else{
-            
-            String insertSQL = "INSERT INTO task(name, description, importance,status, type,creation_date,limit_date) VALUES(?, ?, ?, ?, ?, ?,?)";
-
-            try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
-
-            pstmt.setString(1, NameField.getText());
-            pstmt.setString(2, DescriptionField.getText());
-            pstmt.setString(3, ImportanceComboBox.getSelectedItem().toString());
-            pstmt.setString(4, Status.PENDING.toString());
-            pstmt.setString(5, TypeComboBox.getSelectedItem().toString());
-            pstmt.setString(6, LocalDate.now().toString());
-            if(LimitDateChoser.getDate()== null)
-                pstmt.setString(7, null);
-            
+        if(!edit){
+            if(NameField.getText().equals(""))
+                System.out.println("lol");
             else{
-                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String formattedDate = formatter.format(LimitDateChoser.getDate());
-                pstmt.setString (7, formattedDate);
-            }
-            pstmt.executeUpdate();
             
-            dataAdded.onDataAdded();
+                String insertSQL = "INSERT INTO task(name, description, importance,status, type,creation_date,limit_date) VALUES(?, ?, ?, ?, ?, ?,?)";
 
-            System.out.println("Données insérées avec succès.");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-            this.setVisible(false);
+                try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+
+                pstmt.setString(1, NameField.getText());
+                if(!DescriptionField.getText().isEmpty())
+                    pstmt.setString(2, DescriptionField.getText());
+                else{
+                    pstmt.setString(2, null);
+                }
+                pstmt.setString(3, ImportanceComboBox.getSelectedItem().toString());
+                pstmt.setString(4, Status.PENDING.toString());
+                pstmt.setString(5, TypeComboBox.getSelectedItem().toString());
+                pstmt.setString(6, LocalDate.now().toString());
+                if(LimitDateChoser.getDate() == null)
+                    pstmt.setString(7, null);
+            
+                else{
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String formattedDate = formatter.format(LimitDateChoser.getDate());
+                    pstmt.setString (7, formattedDate);
+                }
+                pstmt.executeUpdate();
+            
+                dataAdded.onDataAdded();
+
+                System.out.println("Donnees inserees avec succes.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+                
             
             
+            }
         }
+        else if(edit){
+            String insertSQL = "UPDATE task SET name = ?, description = ?, "
+                    + "importance = ? ,status = ? , type = ? ,creation_date = ? ,limit_date = ?"
+                    + " WHERE id = ?";
+
+                try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+
+                pstmt.setString(1, NameField.getText());
+                if(!DescriptionField.getText().isEmpty())
+                    pstmt.setString(2, DescriptionField.getText());
+                else{
+                    pstmt.setString(2, null);
+                }
+                pstmt.setString(3, ImportanceComboBox.getSelectedItem().toString());
+                pstmt.setString(4, Status.PENDING.toString());
+                pstmt.setString(5, TypeComboBox.getSelectedItem().toString());
+                pstmt.setString(6, LocalDate.now().toString());
+                if(LimitDateChoser.getDate() == null)
+                    pstmt.setString(7, null);
+            
+                else{
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String formattedDate = formatter.format(LimitDateChoser.getDate());
+                    pstmt.setString (7, formattedDate);
+                }
+                pstmt.setString(8, String.valueOf(task.getId()));
+                pstmt.executeUpdate();
+            
+                dataAdded.onDataAdded();
+
+                System.out.println("Donnees inserees avec succes.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     /**
