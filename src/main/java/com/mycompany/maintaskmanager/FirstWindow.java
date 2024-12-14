@@ -53,6 +53,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
         initComponents();
         Tasks = new ArrayList<>();
         LoadDataBase();
+        showTaskToDo();
         
         
     }
@@ -66,17 +67,16 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        DeleteButton = new javax.swing.JButton();
+        DescriptionLabel = new javax.swing.JLabel();
+        TypeLabel = new javax.swing.JLabel();
         AddButton = new javax.swing.JButton();
         EditButton = new javax.swing.JButton();
-        NameLabel = new javax.swing.JLabel();
-        DescriptionLabel = new javax.swing.JLabel();
         LimitDateLabel = new javax.swing.JLabel();
-        TypeLabel = new javax.swing.JLabel();
-        ImportanceLabel = new javax.swing.JLabel();
+        DeleteButton = new javax.swing.JButton();
+        NameLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TaskList = new javax.swing.JList<>();
+        ImportanceLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Task Manager");
@@ -86,20 +86,13 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
         setMaximumSize(new java.awt.Dimension(469, 382));
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        DescriptionLabel.setText("ts");
 
-        DeleteButton.setBackground(new java.awt.Color(153, 153, 255));
-        DeleteButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        DeleteButton.setEnabled(false);
-        DeleteButton.setLabel("delete");
-        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteButtonActionPerformed(evt);
-            }
-        });
+        TypeLabel.setText("ts");
 
         AddButton.setBackground(new java.awt.Color(153, 153, 255));
         AddButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        AddButton.setForeground(new java.awt.Color(255, 255, 255));
         AddButton.setLabel("add");
         AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +102,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
 
         EditButton.setBackground(new java.awt.Color(153, 153, 255));
         EditButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        EditButton.setForeground(new java.awt.Color(255, 255, 255));
         EditButton.setText("edit");
         EditButton.setEnabled(false);
         EditButton.addActionListener(new java.awt.event.ActionListener() {
@@ -117,20 +111,21 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
             }
         });
 
-        NameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        NameLabel.setText("ts");
-
-        DescriptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        DescriptionLabel.setText("ts");
-
-        LimitDateLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LimitDateLabel.setText("ts");
 
-        TypeLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        TypeLabel.setText("ts");
+        DeleteButton.setBackground(new java.awt.Color(153, 153, 255));
+        DeleteButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        DeleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        DeleteButton.setEnabled(false);
+        DeleteButton.setLabel("delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
 
-        ImportanceLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ImportanceLabel.setText("ts");
+        NameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        NameLabel.setText("ts");
 
         jScrollPane2.setPreferredSize(null);
 
@@ -144,83 +139,174 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
         });
         jScrollPane2.setViewportView(TaskList);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(TypeLabel)
-                                    .addComponent(DescriptionLabel)
-                                    .addComponent(LimitDateLabel)
-                                    .addComponent(ImportanceLabel)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(NameLabel)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EditButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(AddButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                                .addComponent(DeleteButton)))
-                        .addGap(52, 52, 52))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(EditButton)
-                .addGap(18, 18, 18)
-                .addComponent(NameLabel)
-                .addGap(18, 18, 18)
-                .addComponent(DescriptionLabel)
-                .addGap(26, 26, 26)
-                .addComponent(TypeLabel)
-                .addGap(36, 36, 36)
-                .addComponent(LimitDateLabel)
-                .addGap(18, 18, 18)
-                .addComponent(ImportanceLabel)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AddButton)
-                    .addComponent(DeleteButton))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        ImportanceLabel.setText("ts");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TypeLabel)
+                                    .addComponent(DescriptionLabel)
+                                    .addComponent(LimitDateLabel)
+                                    .addComponent(ImportanceLabel))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(EditButton)))
+                        .addGap(25, 25, 25))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(158, 158, 158)
+                                .addComponent(NameLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(AddButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                                .addComponent(DeleteButton)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(EditButton)
+                .addGap(20, 20, 20)
+                .addComponent(NameLabel)
+                .addGap(20, 20, 20)
+                .addComponent(DescriptionLabel)
+                .addGap(26, 26, 26)
+                .addComponent(TypeLabel)
+                .addGap(32, 32, 32)
+                .addComponent(LimitDateLabel)
+                .addGap(18, 18, 18)
+                .addComponent(ImportanceLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddButton)
+                    .addComponent(DeleteButton))
+                .addGap(18, 18, 18))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TaskListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TaskListMouseClicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+
+            SelectedTask = Tasks.get(index);
+            LocalDate limitDate = Tasks.get(index).getTaskLimitDate();
+            String description = Tasks.get(index).getTaskDescription();
+            Importance imp = Tasks.get(index).getTaskImportance();
+
+            System.out.println("index: "+index);
+            clearScreen();
+
+            NameLabel.setText(Tasks.get(index).getTaskName());
+
+            TypeLabel.setText("type: " + Tasks.get(index).getTaskType().toString().toLowerCase(Locale.ITALY));
+
+            if(imp == Importance.VERYIMPORTANT)
+                ImportanceLabel.setText("importance: Very important");
+            else{
+                ImportanceLabel.setText("importance: " + imp.toString().toLowerCase());
+            }
+
+            if(description != null)
+                DescriptionLabel.setText("description: " + description);
+            else
+                DescriptionLabel.setText("description: No Description");
+
+            if(limitDate != null){
+                LimitDateLabel.setText("limit date: " + Tasks.get(index).getTaskLimitDate());
+                System.out.println("date no null");
+            }
+            else
+                LimitDateLabel.setText("limit date: No limit");
+            
+            
+
+            enableButtons();
+        }
+
+    }//GEN-LAST:event_TaskListMouseClicked
+
+    
+    private void showTaskToDo(){
+        if(!Tasks.isEmpty()){
+            String message = "";
+            
+            for(int i = 0 ; i<Tasks.size();i++){
+                if(Tasks.get(i).getTaskLimitDate() != null && Tasks.get(i).getTaskLimitDate().equals(LocalDate.now())){
+                    message += "les taches du jour sont: ";
+                    message += " " + Tasks.get(i).getTaskName();
+                    System.out.println("success");
+                }
+                else{
+                    
+                }
+            }
+            if(!"".equals(message))
+                JOptionPane.showMessageDialog(null, message);
+        }
+    }
+    
+    
+    private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
+        if(SelectedTask != null)
+            new TaskWindow(this,true,SelectedTask).setVisible(true);
+        clearScreen();
+    }//GEN-LAST:event_EditButtonActionPerformed
+
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        System.out.println("test");
+
+        //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        //Task _task = new Task( "test", "test", Importance.Important,taskType.Hobby );
+        //model.addRow(new String[]{_task.getTaskName(), _task.getTaskImportance().toString(), _task.getTaskCreationDate().toString(),_task.getTaskLimitDate().toString()});
+        new TaskWindow(this).setVisible(true);
+
+    }//GEN-LAST:event_AddButtonActionPerformed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        int index = TaskList.getSelectedIndex();
+        String url = "jdbc:sqlite:C:/datab/database.db";
+        String query = "DELETE FROM task where id = ?;";
+
+        try (var conn = DriverManager.getConnection(url);
+            var pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, Tasks.get(index).getId());
+
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+            System.out.println("succes delete for " + Tasks.get(index).getId());
+
+            Tasks.remove(index);
+
+            clearScreen();
+
+            LoadDataBase();
+
+            disableButtons();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }//GEN-LAST:event_DeleteButtonActionPerformed
 
     
     
@@ -246,11 +332,7 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
         while (rs.next()) {
             int id = rs.getInt("id");
             
-            if(rs.getString("limit_date")!= null)
-                System.out.println(rs.getString("limit_date"));
-            else if(rs.getString("limit_date")==null)
-                System.out.println("okokoks");
-
+            
            
             taskType type = taskType.valueOf(rs.getString("type").toUpperCase());
             Status status = Status.valueOf(rs.getString("status").toUpperCase());
@@ -287,10 +369,12 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
         
         
         if(!Tasks.isEmpty()){
-            System.out.println("la liste n'est pas vide");
+           
             for(int i = 0; i < Tasks.size(); i ++ ){
                 listModel.addElement(Tasks.get(i).getTaskName());
-            }
+                
+                }
+               
         
             TaskList.setModel(listModel);
         }
@@ -312,50 +396,6 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
     
     
      
-    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-       System.out.println("test");
-       
-       //DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-       //Task _task = new Task( "test", "test", Importance.Important,taskType.Hobby );
-       //model.addRow(new String[]{_task.getTaskName(), _task.getTaskImportance().toString(), _task.getTaskCreationDate().toString(),_task.getTaskLimitDate().toString()});
-       new TaskWindow(this).setVisible(true);
-       
-       
-    }//GEN-LAST:event_AddButtonActionPerformed
-
-    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-       int index = TaskList.getSelectedIndex();
-        String url = "jdbc:sqlite:C:/datab/database.db";
-        String query = "DELETE FROM task where id = ?;";
-       
-       try (var conn = DriverManager.getConnection(url);
-             var pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setInt(1, Tasks.get(index).getId());
-
-            // execute the delete statement
-            pstmt.executeUpdate();
-            
-            System.out.println("succes delete for " + Tasks.get(index).getId());
-            
-            Tasks.remove(index);
-            
-            clearScreen();
-            
-            
-            LoadDataBase();
-            
-            disableButtons();
-            
-           
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-    
-
-       
-    }//GEN-LAST:event_DeleteButtonActionPerformed
-
     private void clearScreen(){
             NameLabel.setText("");
             DescriptionLabel.setText("");
@@ -374,55 +414,6 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
         EditButton.setEnabled(false);
     }
     
-    private void TaskListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TaskListMouseClicked
-        JList list = (JList)evt.getSource();
-        if (evt.getClickCount() == 2) {
-            int index = list.locationToIndex(evt.getPoint());
-        
-            SelectedTask = Tasks.get(index);
-            LocalDate limitDate = Tasks.get(index).getTaskLimitDate();
-            String description = Tasks.get(index).getTaskDescription();
-            Importance imp = Tasks.get(index).getTaskImportance();
-        
-            System.out.println("index: "+index);
-            clearScreen();
-
-            NameLabel.setText("name: " + Tasks.get(index).getTaskName());
-            
-            
-            
-            TypeLabel.setText("type: " + Tasks.get(index).getTaskType().toString().toLowerCase(Locale.ITALY));
-            
-            if(imp == Importance.VERYIMPORTANT)
-                ImportanceLabel.setText("importance: Very important");
-            else{
-                ImportanceLabel.setText("importance: " + imp.toString().toLowerCase());
-            }
-            
-            
-            if(description != null)
-                DescriptionLabel.setText("description: " + description);
-            else
-                DescriptionLabel.setText("description: No Description");
-            
-            if(limitDate != null){
-                LimitDateLabel.setText("limit date: " + Tasks.get(index).getTaskLimitDate());
-                System.out.println("date no null");
-            }
-            else
-                LimitDateLabel.setText("limit date: No limit");
-            
-            enableButtons();
-        }
-    
-    }//GEN-LAST:event_TaskListMouseClicked
-
-    private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
-        if(SelectedTask != null)
-            new TaskWindow(this,true,SelectedTask).setVisible(true);
-        clearScreen();
-    }//GEN-LAST:event_EditButtonActionPerformed
-
     @Override
     public void actionPerformed(ActionEvent e){
         System.out.println("test");
@@ -445,7 +436,6 @@ public class FirstWindow extends javax.swing.JFrame implements ActionListener, D
     private javax.swing.JLabel NameLabel;
     private javax.swing.JList<String> TaskList;
     private javax.swing.JLabel TypeLabel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,7 +50,7 @@ public class Task {
         TaskCreationDate = LocalDate.now();
     }
     
-    //Task(int,String,String,Importance,taskType,Status)
+    
     
      public Task(int _id,String _name, String _description, Importance _TaskImportance, taskType _taskType, Status _taskStatus)
     {
@@ -64,61 +64,111 @@ public class Task {
         TaskCreationDate = LocalDate.now();
     }
     
+     /*
+    *Getter method for the Task's id
+     *@return the Task's id
+    */
      public int getId(){
          return id;
      }
      
     
      
+     /*
+    *Getter method for the limit date
+     *@return the Task's Name
+    */
     public String getTaskName(){
         return name;
     }
     
+    /*
+    *Getter method for the limit date
+    *@return the Task's Description
+    */
     public String getTaskDescription(){
         return description;
     }
     
+    /*
+    *Gtter method for the limit date
+    *@return the Task's Importance
+    */
     public Importance getTaskImportance(){
         return TaskImportance;
     }
     
+    /*
+    *Getter method for the limit date
+    *@return the Task's Type
+    */
     public taskType getTaskType(){
         return Task_Type;
     }
     
+    /*
+    *Gtter method for the limit date
+    *@return the Task's Status
+    */
     public Status getTaskStatus(){
         return taskStatus;
     }
     
+    /*
+    *Getter method for the limit date
+    *@return the Creation Date
+    */
     public LocalDate getTaskCreationDate(){
         return TaskCreationDate;
     }
     
+    /*
+    *Getter method for the limit date
+    *@return the limit date
+    */
     public LocalDate getTaskLimitDate(){
         return TaskLimitDate;
     }
     
     
+    /*
+    *Setter method for the Task's name
+    */
     public void setTasktName(String _name){
         name = _name;
     }
     
+    /*
+    *Setter method for the Task's description
+    */
     public void setTaskDescription(String _description){
         description = _description;
     }
     
+    /*
+    *Setter method for the Task's importance
+    */
     public void setTaskImportance(Importance _TaskImportance){
         TaskImportance = _TaskImportance;
     }
     
+    /*
+    *Setter method for the Task's type
+    */
     public void setTaskType(taskType _taskType){
         Task_Type = _taskType;
     }
     
+    /*
+    *Setter method for the Task's status
+    */
     public void setTaskStatus(Status _taskStatus){
         taskStatus = _taskStatus;
     }
     
+    /*
+    *Setter method for the limit date
+    */
     public void setTaskLimitDate(LocalDate _limitDate){
         TaskLimitDate = _limitDate;
     }
